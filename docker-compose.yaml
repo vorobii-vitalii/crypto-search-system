@@ -1,0 +1,54 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:7.6.1
+    networks:
+      net:
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - cluster.name=elasticsearch
+      - node.name=elasticsearch
+      - network.host=0.0.0.0
+      - http.host=0.0.0.0
+  crypto-search-service:
+    ports:
+      - "8000:8000"
+    build:
+      context: crypto-search-service
+      dockerfile: Dockerfile
+    healthcheck:
+      test: curl --fail http://elasticsearch:9200 >/dev/null || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 50
+    restart: always
+    networks:
+      net:
+    environment:
+      - "INDEX_NAME=cryptos"
+      - "ELASTIC_URL=http://elasticsearch:9200"
+      - "PORT=8000"
+  crypto-indexer:
+    build:
+      context: crypto-indexer
+      dockerfile: Dockerfile
+    healthcheck:
+      test: curl --fail http://elasticsearch:9200 >/dev/null || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 50
+    restart: on-failure
+    networks:
+      net:
+    environment:
+      - "FINN_HUB_API_KEY=$FINN_HUB_API_KEY"
+      - "FINN_HUB_PROTOCOL=https"
+      - "FINN_HUB_HOST_PORT=finnhub.io"
+      - "INDEX_NAME=cryptos"
+      - "ELASTIC_URL=http://elasticsearch:9200"
+networks:
+  net:
