@@ -6,11 +6,18 @@ Consists of 2 components:
 
 ## Technology stack:
 1. Java 21
-2. ELK
-3. APM Java Agent
-4. gRPC
-5. Dagger (for dependency injection)
-6. JUnit, Mockito, AssertJ for testing
+2. Elasticsearch
+3. Kibana
+4. APM Java Agent
+5. gRPC
+6. Dagger (for dependency injection)
+7. JUnit, Mockito, AssertJ for testing
+
+### Start locally
+```shell
+export FINN_HUB_API_KEY=...
+docker-compose up --build
+```
 
 ### View data in index:
 ```shell
