@@ -23,7 +23,7 @@ tasks {
     }
 }
 
-group = "org.example"
+group = "org.vitalii.vorobii"
 
 repositories {
     mavenCentral()
