@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_package = "com.example.crypto_search";
+option java_outer_classname = "CryptoSearch";
+option java_multiple_files = true;
+
+message CryptoSearchRequest {
+  string query = 1;
+}
+
+message Crypto {
+  string symbol = 1;
+  string description = 2;
+  string marketName = 3;
+}
+
+service CryptoSearchService {
+  rpc search(CryptoSearchRequest) returns (stream Crypto);
+}
