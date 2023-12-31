@@ -38,6 +38,9 @@ dependencies {
     implementation("co.elastic.clients:elasticsearch-java:8.11.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.12.3")
 
+    // Tracing
+    implementation("co.elastic.apm:apm-agent-api:1.45.0")
+
     // Logging
     implementation("org.slf4j:slf4j-api:2.1.0-alpha0")
     implementation("org.slf4j:slf4j-simple:2.1.0-alpha0")

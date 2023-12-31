@@ -1,8 +1,16 @@
 ## Crypto search platform
 
 Consists of 2 components:
-1. Crypto indexer that fetches crypto data from REST API and indexes it to ElasticSearch
+1. Crypto indexer that fetches crypto data from FinnHub REST API and indexes it to ElasticSearch
 2. Crypto search service that accepts query and uses ElasticSearch to read all matching cryptocurrencies
+
+## Technology stack:
+1. Java 21
+2. ELK
+3. APM Java Agent
+4. gRPC
+5. Dagger (for dependency injection)
+6. JUnit, Mockito, AssertJ for testing
 
 ### View data in index:
 ```shell
@@ -70,3 +78,7 @@ Message json (type ? to see defaults): {"query": "bitmex"}
 }]
 Message json (type ? to see defaults): 
 ```
+
+## Kibana
+http://localhost:5601/
+

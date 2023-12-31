@@ -42,6 +42,9 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.1.0-alpha0")
     implementation("org.slf4j:slf4j-simple:2.1.0-alpha0")
 
+    // Tracing
+    implementation("co.elastic.apm:apm-agent-api:1.45.0")
+
     // Dependency injection
     implementation("com.google.dagger:dagger:2.50")
     annotationProcessor("com.google.dagger:dagger-compiler:2.50")

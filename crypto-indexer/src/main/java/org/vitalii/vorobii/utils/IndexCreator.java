@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import co.elastic.apm.api.CaptureTransaction;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import co.elastic.clients.elasticsearch.indices.ExistsRequest;
@@ -23,6 +24,7 @@ public class IndexCreator {
 		this.client = client;
 	}
 
+	@CaptureTransaction
 	public void createIndex(String indexName) throws IOException {
 		LOGGER.info("Trying to create index {}", indexName);
 		var isIndexExists = Optional.ofNullable(client.indices().exists(ExistsRequest.of(e -> e.index(indexName))))

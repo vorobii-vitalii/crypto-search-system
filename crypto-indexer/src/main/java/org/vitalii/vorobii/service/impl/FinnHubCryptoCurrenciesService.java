@@ -14,6 +14,7 @@ import org.vitalii.vorobii.utils.JacksonBodyHandler;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import co.elastic.apm.api.CaptureSpan;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -32,6 +33,7 @@ public class FinnHubCryptoCurrenciesService implements CryptoCurrenciesService {
 		this.hostPort = hostPort;
 	}
 
+	@CaptureSpan
 	@Override
 	public Flux<CryptoCurrency> getAllCryptoCurrencies() {
 		return Mono.fromFuture(httpClient.sendAsync(createGetMarketsRequest(), new JacksonBodyHandler<>(new TypeReference<List<String>>() {

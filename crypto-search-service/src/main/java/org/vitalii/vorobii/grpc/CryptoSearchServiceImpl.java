@@ -11,6 +11,7 @@ import com.example.crypto_search.Crypto;
 import com.example.crypto_search.CryptoSearchRequest;
 import com.example.crypto_search.CryptoSearchServiceGrpc;
 
+import co.elastic.apm.api.CaptureTransaction;
 import io.grpc.stub.StreamObserver;
 import reactor.core.CoreSubscriber;
 
@@ -23,6 +24,7 @@ public class CryptoSearchServiceImpl extends CryptoSearchServiceGrpc.CryptoSearc
 		this.cryptoSearchService = cryptoSearchService;
 	}
 
+	@CaptureTransaction
 	@Override
 	public void search(CryptoSearchRequest request, StreamObserver<Crypto> responseObserver) {
 		LOGGER.info("Received search request {}", request);

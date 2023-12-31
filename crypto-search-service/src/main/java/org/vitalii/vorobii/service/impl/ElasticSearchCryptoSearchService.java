@@ -11,6 +11,7 @@ import org.vitalii.vorobii.service.CryptoSearchService;
 import com.example.crypto_search.Crypto;
 import com.example.crypto_search.CryptoSearchRequest;
 
+import co.elastic.apm.api.CaptureSpan;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.search.Hit;
@@ -30,6 +31,7 @@ public class ElasticSearchCryptoSearchService implements CryptoSearchService {
 		this.indexName = indexName;
 	}
 
+	@CaptureSpan
 	@Override
 	public Flux<Crypto> findCryptoCurrencies(CryptoSearchRequest cryptoSearchRequest) {
 		return Flux.create(sink -> {

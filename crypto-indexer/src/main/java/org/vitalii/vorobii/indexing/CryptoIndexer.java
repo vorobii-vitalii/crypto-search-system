@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.vitalii.vorobii.constants.IndexingConstants;
 import org.vitalii.vorobii.service.CryptoCurrenciesService;
 
+import co.elastic.apm.api.CaptureTransaction;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.BulkRequest;
 import reactor.core.publisher.Flux;
@@ -33,6 +34,7 @@ public class CryptoIndexer {
 		this.indexName = indexName;
 	}
 
+	@CaptureTransaction
 	public void indexAllCryptoCurrencies() {
 		LOGGER.info("Starting indexing of crypto currencies into {}", indexName);
 		cryptoCurrenciesService.getAllCryptoCurrencies()
