@@ -1,7 +1,5 @@
 package org.vitalii.vorobii.grpc;
 
-import java.nio.file.LinkOption;
-
 import org.reactivestreams.Subscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

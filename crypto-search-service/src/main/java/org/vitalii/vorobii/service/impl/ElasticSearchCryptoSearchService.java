@@ -19,6 +19,7 @@ import reactor.core.publisher.Flux;
 
 public class ElasticSearchCryptoSearchService implements CryptoSearchService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchCryptoSearchService.class);
+	public static final String DESCRIPTION = "description";
 
 	private final ElasticsearchClient elasticsearchClient;
 	private final String indexName;
@@ -37,13 +38,8 @@ public class ElasticSearchCryptoSearchService implements CryptoSearchService {
 		return Flux.create(sink -> {
 			try {
 				var searchRequest = SearchRequest.of(b ->
-						b.index(indexName)
-								.query(q -> q
-										.match(t -> t.field("description").query(cryptoSearchRequest.getQuery()))));
-				var searchResponse =
-						elasticsearchClient.search(
-								searchRequest,
-								CryptoCurrency.class);
+						b.index(indexName).query(q -> q.match(t -> t.field(DESCRIPTION).query(cryptoSearchRequest.getQuery()))));
+				var searchResponse = elasticsearchClient.search(searchRequest, CryptoCurrency.class);
 				LOGGER.info("Search response on request {} = {}", searchRequest, searchResponse);
 				searchResponse.hits()
 						.hits()

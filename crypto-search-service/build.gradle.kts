@@ -57,11 +57,8 @@ tasks {
         manifest {
             attributes("Main-Class" to mainClass)
         }
-        from(configurations.runtimeClasspath.get()
-            .onEach { println("add from dependencies: ${it.name}") }
-            .map { if (it.isDirectory) it else zipTree(it) })
+        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
         val sourcesMain = sourceSets.main.get()
-        sourcesMain.allSource.forEach { println("add from sources: ${it.name}") }
         from(sourcesMain.output)
     }
 }
@@ -77,6 +74,9 @@ dependencies {
     // Tests
     testImplementation(platform("org.junit:junit-bom:5.9.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("org.mockito:mockito-core:5.8.0")
+    testImplementation("io.projectreactor:reactor-test:3.6.1")
 
     // Elastic search
     implementation("co.elastic.clients:elasticsearch-java:8.11.2")
