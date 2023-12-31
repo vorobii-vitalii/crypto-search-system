@@ -61,6 +61,7 @@ tasks {
 }
 
 group = "org.vitalii.vorobii"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()

@@ -3,9 +3,52 @@ import com.google.protobuf.gradle.*
 plugins {
     id("java")
     id("com.google.protobuf") version "0.8.19"
+    `maven-publish`
 }
 
 val mainClass = "org.vitalii.vorobii.CryptoSearchServer"
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/vorobii-vitalii/crypto-search-system")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+
+    publications {
+        create<MavenPublication>("mavenJava") {
+            pom {
+                name = "Crypto search service"
+                description = "gRPC service to search cryptos"
+                url = "https://github.com/vorobii-vitalii/crypto-search-system"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "vorobii-vitalii"
+                        name = "Vitalii Vorobii"
+                        email = "vitalij.vorobij@gmail.com"
+                    }
+                }
+                scm {
+                    connection = "scm:git:ssh://github.com/vorobii-vitalii/crypto-search-system.git"
+                    developerConnection = "scm:git:ssh://github.com/vorobii-vitalii/crypto-search-system.git"
+                    url = "https://github.com/vorobii-vitalii/crypto-search-system"
+                }
+            }
+        }
+    }
+}
+
 
 tasks {
     register("fatJar", Jar::class.java) {
@@ -24,6 +67,7 @@ tasks {
 }
 
 group = "org.vitalii.vorobii"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
